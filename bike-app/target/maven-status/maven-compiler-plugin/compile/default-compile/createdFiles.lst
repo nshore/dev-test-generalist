@@ -1,1 +1,3 @@
+com\bikeapp\model\Bike.class
+com\bikeapp\Database\DatabaseHandler.class
 com\bikeapp\controller\Application.class

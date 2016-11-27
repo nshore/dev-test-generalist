@@ -28,18 +28,19 @@ docker-machine ls
 To connect to the mongodb container use the docker-machine ip address and the port 27017
 
 
-
 IDE Set up
 IntelliJ community for the IDE.  Location of download.
 
 Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
 
 Once the project is imported to IntelliJ you will need to configure your run settings.
-Click Run -> Edit COnfiguration -> Add new Maven profile ->
+Click Run -> Edit Configuration -> Add new Maven profile ->
 
 Name: BikeApp
 Working Directory: C:/Personal/dev/bike_project/bike-app
 Command Line: spring-boot:run
+
+
 
 
 
