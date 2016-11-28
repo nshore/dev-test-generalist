@@ -54,9 +54,19 @@ http://localhost:8081/getAllBikes
 http://localhost:8081/getBikeById/{Bike Id} e.g. http://localhost:8081/getBikeById/4
 
 
-#B. Create a new Bike (POST method only)
+#B. Get All Bikes (GET method only)
 Parameter required are bikeName, bikeDescription, bikePrice.  String values expected.
-http://localhost:8081/createBike?bikeName="chopper"&bikeDescription="Old school bike my Dad use to have"&bikePrice="500"
+http://localhost:8081/getAllBikes
+
+#B. Get Bike by ID (GET method only)
+Id to be specified in url path e.g. substitute '2' below with id
+http://localhost:8081/getBikeById/2
+
+#B. Create a new Bike (POST method only)
+Parameters required are bikeName, bikeDescription, bikePrice.  String values expected for all.
+http://localhost:8081/createBike?bikeName='chopper'&bikeDescription='Old school bike my Dad use to have'&bikePrice='500'
+
+
 
 ### OPTION 2 - Run from the command line (Property in square brackets is optional, default is port 8080)
 java [-Dserver.port=8081] -jar bike-rest-service-1.0.0.jar 
