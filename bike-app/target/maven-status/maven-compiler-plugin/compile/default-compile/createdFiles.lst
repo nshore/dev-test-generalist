@@ -1,5 +1,6 @@
-com\bikeapp\Database\DBQueryHandler.class
-com\bikeapp\Domain\Bike.class
-com\bikeapp\Database\DBConnectionFactory.class
-com\bikeapp\Utils\JsonParser.class
+com\bikeapp\database\DBConnectionFactory.class
+com\bikeapp\utils\JsonParser.class
+com\bikeapp\controller\HomeController.class
+com\bikeapp\database\DBQueryHandler.class
 com\bikeapp\controller\Application.class
+com\bikeapp\domain\Bike.class
