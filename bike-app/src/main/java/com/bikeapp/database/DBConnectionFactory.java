@@ -2,7 +2,9 @@ package com.bikeapp.database;
 
 import com.mongodb.Mongo;
 
-public class DBConnectionHandler {
+//Redundant class
+//TODO: use class to create connection objects for mongodb
+public class DBConnectionFactory {
 
     private Mongo client = null;
 
