@@ -1,5 +1,6 @@
-C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\Database\DBConnectionHandler.java
-C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\Database\DBQueryHandler.java
+C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\utils\JsonParser.java
+C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\database\DBQueryHandler.java
+C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\database\DBConnectionFactory.java
 C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\controller\HomeController.java
 C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\controller\Application.java
-C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\model\Bike.java
+C:\Personal\dev\bike_project\bike-app\src\main\java\com\bikeapp\domain\Bike.java
