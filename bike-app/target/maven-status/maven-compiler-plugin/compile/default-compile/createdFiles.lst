@@ -1,3 +1,4 @@
+com\bikeapp\Database\DBQueryHandler.class
+com\bikeapp\Database\DBConnectionHandler.class
 com\bikeapp\model\Bike.class
-com\bikeapp\Database\DatabaseHandler.class
 com\bikeapp\controller\Application.class

@@ -27,18 +27,36 @@ docker-machine ls
 
 To connect to the mongodb container use the docker-machine ip address and the port 27017
 
+#B. Note - if you restart the docker service will need to run the following command to start the mongdb container
+docker start jlmongo
 
-IDE Set up
+
+#B. IDE Set up
 IntelliJ community for the IDE.  Location of download.
 
-Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
+#B. Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
 
-Once the project is imported to IntelliJ you will need to configure your run settings.
+#B. Once the project is imported to IntelliJ you will need to configure your run settings.
 Click Run -> Edit Configuration -> Add new Maven profile ->
 
 Name: BikeApp
 Working Directory: C:/Personal/dev/bike_project/bike-app
 Command Line: spring-boot:run
+
+
+Curl/Postman Commands
+
+#B. Get all Bikes from database
+http://localhost:8081/getAllBikes
+
+
+#B. Get bike by Bike id (Note Bike id is part of url and must be an integer)
+http://localhost:8081/getBikeById/{Bike Id} e.g. http://localhost:8081/getBikeById/4
+
+
+#B. Create a new Bike (POST method only)
+Parameter required are bikeName, bikeDescription, bikePrice.  String values expected.
+http://localhost:8081/createBike?bikeName="chopper"&bikeDescription="Old school bike my Dad use to have"&bikePrice="500"
 
 
 

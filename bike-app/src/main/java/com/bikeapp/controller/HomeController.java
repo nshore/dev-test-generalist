@@ -2,10 +2,7 @@ package com.bikeapp.controller;
 
 import com.bikeapp.Database.DBQueryHandler;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HomeController {
@@ -22,6 +19,15 @@ public class HomeController {
 
         DBQueryHandler bikeQuery = new DBQueryHandler();
         return bikeQuery.getBikeById(bikeId);
+    }
+
+    @RequestMapping(value = "/createBike", method = RequestMethod.POST)
+    public String createBikedAPICall(@RequestParam("bikeName") String bikeName,
+                                     @RequestParam("bikeDescription") String bikeDescription,
+                                     @RequestParam("bikePrice") String bikePrice) {
+
+        DBQueryHandler bikeQuery = new DBQueryHandler();
+        return bikeQuery.createBike(bikeName, bikeDescription, bikePrice);
     }
 
 }
