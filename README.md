@@ -1,6 +1,6 @@
-#Instruction to set up Nick Shore Bike API Service
+#Instructions to set up Nick Shore Bike API Service
 
-Follow instructions as per README_original.MD to get Docker running with a Mongo DB container and test data.  The application requires Docker running on ip address 192.168.99.100 and the port 27017.
+Follow instructions as per README_original.md to get Docker running with a Mongo DB container and test data.  The application requires Docker running on ip address 192.168.99.100 and the port 27017.
 
 ##Additional
 
@@ -49,7 +49,7 @@ Note - if you restart the docker service you will need to run the following comm
 docker start jlmongo
 ```
 
-##Testing API - TWO Options
+##Testing API - Two Options
 
 ###1. Easy Option - Run Jar from the command line
 
@@ -63,7 +63,6 @@ This will run the application on port 8081 and will allow you to execute the API
 
 ###2. Less Easy Option - Set up IntelliJ IDE
 
-##IDE Set up
 - Install/Open IntelliJ community for the IDE (free).
 
 - Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
@@ -81,6 +80,23 @@ Command Line: spring-boot:run -Drun.jvmArguments='-Dserver.port=8081'
 ```
 
 This will then run the spring boot app using port 8081.
+
+##API Functions
+
+###Get All Bikes
+
+Returns all bike data from the database in json format
+
+###Get Bike by ID
+
+Returns data for a bike based on the Bike ID specified
+
+###Create 
+
+Create a new database entry for a bike for the data:
+Bike Name
+Bike Description
+Bike Price
 
 ##Testing API
 ###Postman Commands
@@ -104,6 +120,14 @@ Method: POST
 URL example: http://localhost:8081/createBike?bikeName='chopper'&bikeDescription='Old school bike my Dad use to have'&bikePrice='500'
 ```
 
+###Curl Equivalents
+```
+curl http://localhost:8081/getAllBikes
+curl http://localhost:8081/getBikeById/{Bike Id}
+curl -X POST -F 'bikeName=chopper' -F 'bikeDescription=Old school bike my Dad use to have' -F 'bikePrice=500' http://localhost:8081/createBike
+```
+
+
 
 ##What Else??
 
@@ -111,8 +135,9 @@ There were quite a few things that I would have liked to have done given more ti
 
 1.  Ideally I would have approached this using TDD and written tests before building the functionality.  However, I wanted to focus on fulfilling the user stories in the required time.
 2.  My Spring Boot application needs refinement.  I included redundant classes so you could see my approach.  I was planning on using a Bike Domain to handle the data back from the DB calls and then present this back to the controller.  But that was more for future enhanced functionality and didnt prevent the json being output.
-3.  As this is a role focusing on frontend skills it would have been good to have built the view elements and provided an interface to communicate with the API.
-4.  I researched putting my Spring Boot Jar file into a docker container which is achievable in my Maven build but I did not have time to do this.
+3.  My Database connection properties need storing in a separate properties file or at least being configurable at runtime to allo flexibility of the docker instance.
+4.  As this is a role focusing on frontend skills it would have been good to have built the view elements and provided an interface to communicate with the API.
+5.  I researched putting my Spring Boot Jar file into a docker container which is achievable in my Maven build but I did not have time to do this.
 
 
 
