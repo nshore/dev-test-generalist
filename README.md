@@ -1,75 +1,117 @@
-Follow instructions as per README_original.MD
+#Instruction to set up Nick Shore Bike API Service
 
+Follow instructions as per README_original.MD to get Docker running with a Mongo DB container and test data.
 
-Additional
+##Additional
 
-Docker toolbox installed as Docker requires WIndows 10 +
+Docker toolbox installed as Docker requires WIndows 10 + so my development instance use Docker Toolbox as this runs on Windows 7.
 
+In order to get the Mongo DB running on Docker Toolbox you will need to complete the following commands.
 
-#B. start the Mongo container as a service
-docker run -d --name jlmongo -p 27017:27017 jujhars13/dev-test-generalist-mongo:latest
+Make sure the Mongo container is running as a service with the following command.
+```
+docker start jlmongo
+```
 
-#B. Enter the container for MongoDB
+Confirm it is running
+```
+docker ps
+```
+
+Enter the container for MongoDB
+```
 docker exec -it jlmongo bash
+```
 
-#B. copy conf file
+Copy conf file
+```
 cp /etc/mongod.conf.original /etc/mongod.conf
+```
 
-#B. addeditor to container
+Add editor to container
+```
 apt-get update
 apt-get install vim
+```
 
-#B. edit conf file
+Edit conf file
+```
 Add 0.0.0.0
+```
 
-#B. get docker ip
+Get docker ip
+```
 docker-machine ls
+```
 
-To connect to the mongodb container use the docker-machine ip address and the port 27017
+To connect to the mongodb container use the docker-machine ip address (needs to be 192.168.99.100 for application to run) and the port 27017
 
-#B. Note - if you restart the docker service will need to run the following command to start the mongdb container
+Note - if you restart the docker service you will need to run the following command to start the mongdb container
+```
 docker start jlmongo
+```
+
+##Testing API - TWO Options
+
+#1. Easy Option - Run Jar from the command line
+
+Pull down the jar file for the Spring Boot to a local folder located "/bike-app/target/bike-rest-service-1.0.0.jar" in the Git Repository.  Open a command line at this location and run the following command:
+```
+java -Dserver.port=8081 -jar bike-rest-service-1.0.0.jar
+```
+
+This will run the application on port 8081 and will allow you to execute the API calls below that are detailed in the Postman Commands section. 
 
 
-#B. IDE Set up
-IntelliJ community for the IDE.  Location of download.
+#2. Less Easy Option - Set up IntelliJ IDE
 
-#B. Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
+#IDE Set up
+- Install/Open IntelliJ community for the IDE (free).
 
-#B. Once the project is imported to IntelliJ you will need to configure your run settings.
+- Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
+
+- Import Project.  The location of the project is 
+
+- Once the project is imported to IntelliJ you will need to configure your run settings.
+
 Click Run -> Edit Configuration -> Add new Maven profile ->
 
 Name: BikeApp
 Working Directory: C:/Personal/dev/bike_project/bike-app
 Command Line: spring-boot:run
 
+##Testing API
+###Postman Commands
 
-Curl/Postman Commands
+Get all Bikes from database
+```
+Method: GET
+URL: http://localhost:8081/getAllBikes
+```
 
-#B. Get all Bikes from database
-http://localhost:8081/getAllBikes
+Get bike by Bike id (Note Bike id is part of url and must be an integer)
+```
+Method: GET
+URL: http://localhost:8081/getBikeById/{Bike Id} e.g. http://localhost:8081/getBikeById/4
+```
 
-
-#B. Get bike by Bike id (Note Bike id is part of url and must be an integer)
-http://localhost:8081/getBikeById/{Bike Id} e.g. http://localhost:8081/getBikeById/4
-
-
-#B. Get All Bikes (GET method only)
-Parameter required are bikeName, bikeDescription, bikePrice.  String values expected.
-http://localhost:8081/getAllBikes
-
-#B. Get Bike by ID (GET method only)
-Id to be specified in url path e.g. substitute '2' below with id
-http://localhost:8081/getBikeById/2
-
-#B. Create a new Bike (POST method only)
+Create a new Bike 
 Parameters required are bikeName, bikeDescription, bikePrice.  String values expected for all.
-http://localhost:8081/createBike?bikeName='chopper'&bikeDescription='Old school bike my Dad use to have'&bikePrice='500'
+```
+Method: POST
+URL example: http://localhost:8081/createBike?bikeName='chopper'&bikeDescription='Old school bike my Dad use to have'&bikePrice='500'
+```
 
 
+###What Else??
 
-### OPTION 2 - Run from the command line (Property in square brackets is optional, default is port 8080)
-java [-Dserver.port=8081] -jar bike-rest-service-1.0.0.jar 
+There were quite a few things that I would have liked to have done given more time but I wanted to time box myself as per instructions to see what I could deliver.
+
+1.  Ideally I would have approached this using TDD and written tests before building the functionality.  However, I wanted to focus on fulfilling the user stories in the required time.
+2.  My Spring Boot application needs refinement.  I included redundant classes so you could see my approach.  I was planning on using a Bike Domain to handle the data back from the DB calls and then present this back to the controller.  But that was more for future enhanced functionality and didnt prevent the json being output.
+3.  As this is a role focusing on frontend skills it would have been good to have built the view elements and provided an interface to communicate with the API.
+4.  I researched putting my Spring Boot Jar file into a docker container which is achievable in my Maven build but I did not have time to do this.
+
 
 
 
