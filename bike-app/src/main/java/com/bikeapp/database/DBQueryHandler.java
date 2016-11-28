@@ -1,15 +1,16 @@
-package com.bikeapp.Database;
+package com.bikeapp.database;
 
+import com.bikeapp.utils.JsonParser;
 import com.mongodb.*;
 import com.mongodb.util.JSON;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.UnknownHostException;
 
 public class DBQueryHandler {
 
-    //set up mongodb properties - Move to properties file
+    //Set up properties for mongodb connection
+    //TODO: Move to properties file
     Mongo mongoClient;
     String host = "192.168.99.100";
     int port = 27017;
@@ -22,20 +23,19 @@ public class DBQueryHandler {
         try {
             mongoClient = new Mongo(host, port);
             DBCollection collection = mongoClient.getDB(dbName).getCollection("bike");
-            //taken from git db.getCollection('bike').find({})
             DBCursor cursor = collection.find();
             JSON json = new JSON();
             String jsonToString = json.serialize(cursor);
-            return jsonToString;
-            //if issues with the above connection and query then return error
+            return JsonParser.getStrippedJsonString(jsonToString);
+
+            //if issues with the above connection or query then return error
         } catch (UnknownHostException e) {
             return "Error: Could not connect to DB and return All Bikes";
         }
     }
 
     public String getBikeById(int bikeId) {
-        //DBCollection collection = mongoClient.getDB(dbName).getCollection("bike");
-        //db.getCollection('bike').find({bikeId:2})
+
         //connect to mongoDB and query all data in the bike collection.  Return as String
         try {
             mongoClient = new Mongo(host, port);
@@ -47,8 +47,8 @@ public class DBQueryHandler {
 
             JSON json = new JSON();
             String jsonToString = json.serialize(cursor);
-            return jsonToString;
-            //if issues with the above connection and query then return error
+            return JsonParser.getStrippedJsonString(jsonToString);
+            //if issues with the above connection or query then return error
         } catch (UnknownHostException e) {
             return "Error: Could not query by Bike ID, please ensure it is specified as a parameter '?bikeId=' and is a valid Integer";
         }
@@ -58,6 +58,7 @@ public class DBQueryHandler {
 
         int newBikeId = getMaxBikeId() + 1;
 
+        //TODO: create bike class to handle properties
         BasicDBObject bikeDocument = new BasicDBObject();
         bikeDocument.put("bikeId", newBikeId);
         bikeDocument.put("name", bikeName);
@@ -78,6 +79,7 @@ public class DBQueryHandler {
         }
     }
 
+    //function to get maximum bike id currently being used in the db
     public int getMaxBikeId() {
 
         int newBikeId = 0;
@@ -87,25 +89,21 @@ public class DBQueryHandler {
             mongoClient = new Mongo(host, port);
 
             DBCollection collection = mongoClient.getDB(dbName).getCollection("bike");
+            //query to find max bike id
             DBCursor cursor = collection.find().sort(new BasicDBObject("bikeId", -1)).limit(1);
-            //DBCursor cursor = collection.find();
             String dBCursorToString = JSON.serialize(cursor);
 
             try {
-
-                int indexOfOpenBracket = dBCursorToString.indexOf("[");
-                int indexOfLastBracket = dBCursorToString.lastIndexOf("]");
-
-                JSONObject jsonResponse = new JSONObject(dBCursorToString.substring(indexOfOpenBracket+1, indexOfLastBracket));
-                bikeIdString = jsonResponse.getString("bikeId");
+                bikeIdString = JsonParser.getStrippedJsonObject(dBCursorToString).getString("bikeId");
                 newBikeId = Integer.parseInt(bikeIdString);
+
             } catch (JSONException e){
                 System.out.println(e);
             }
             return newBikeId;
-            //if issues with the above connection and query then return error
+            //if issues with the above connection or query then handle error
         } catch (UnknownHostException e) {
-            //
+            System.out.print("ERROR: Unable to query database to get the maximum bike id");
         }
         return newBikeId;
     }

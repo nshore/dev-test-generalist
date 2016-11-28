@@ -1,8 +1,6 @@
-package com.bikeapp.Database;
+package com.bikeapp.database;
 
 import com.mongodb.Mongo;
-
-import java.net.UnknownHostException;
 
 public class DBConnectionHandler {
 

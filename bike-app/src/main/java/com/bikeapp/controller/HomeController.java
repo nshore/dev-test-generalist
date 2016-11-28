@@ -1,6 +1,6 @@
 package com.bikeapp.controller;
 
-import com.bikeapp.Database.DBQueryHandler;
+import com.bikeapp.database.DBQueryHandler;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
