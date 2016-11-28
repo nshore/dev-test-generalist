@@ -1,12 +1,10 @@
 #Instruction to set up Nick Shore Bike API Service
 
-Follow instructions as per README_original.MD to get Docker running with a Mongo DB container and test data.
+Follow instructions as per README_original.MD to get Docker running with a Mongo DB container and test data.  The application requires Docker running on ip address 192.168.99.100 and the port 27017.
 
 ##Additional
 
-Docker toolbox installed as Docker requires WIndows 10 + so my development instance use Docker Toolbox as this runs on Windows 7.
-
-In order to get the Mongo DB running on Docker Toolbox you will need to complete the following commands.
+For my dev environment I had to install Docker Toolbox as Docker requires WIndows 10+ and I had a dev environment running Windows 7.  Below are the additional steps I had to take to get Docker Toolbox running on Windows 7.
 
 Make sure the Mongo container is running as a service with the following command.
 ```
@@ -39,12 +37,12 @@ Edit conf file
 Add 0.0.0.0
 ```
 
-Get docker ip
+Get docker ip to check it is running at ip address 192.168.99.100
 ```
 docker-machine ls
 ```
 
-To connect to the mongodb container use the docker-machine ip address (needs to be 192.168.99.100 for application to run) and the port 27017
+To connect to the mongodb container use the docker-machine ip address and port 27017
 
 Note - if you restart the docker service you will need to run the following command to start the mongdb container
 ```
@@ -53,32 +51,36 @@ docker start jlmongo
 
 ##Testing API - TWO Options
 
-#1. Easy Option - Run Jar from the command line
+###1. Easy Option - Run Jar from the command line
 
 Pull down the jar file for the Spring Boot to a local folder located "/bike-app/target/bike-rest-service-1.0.0.jar" in the Git Repository.  Open a command line at this location and run the following command:
 ```
 java -Dserver.port=8081 -jar bike-rest-service-1.0.0.jar
 ```
 
-This will run the application on port 8081 and will allow you to execute the API calls below that are detailed in the Postman Commands section. 
+This will run the application on port 8081 and will allow you to execute the API calls that are detailed in the Postman Commands section below. 
 
 
-#2. Less Easy Option - Set up IntelliJ IDE
+###2. Less Easy Option - Set up IntelliJ IDE
 
-#IDE Set up
+##IDE Set up
 - Install/Open IntelliJ community for the IDE (free).
 
 - Make sure you have Java JDK 8 installed for dev environment.  You may need to specify your SDK in IntelliJ.
 
-- Import Project.  The location of the project is 
+- Import Project.  The location of the project is "/bike-app" in the Git Repository
 
 - Once the project is imported to IntelliJ you will need to configure your run settings.
 
-Click Run -> Edit Configuration -> Add new Maven profile ->
+```
+Click Run -> Edit Configuration -> Add new Maven profile -> 
 
 Name: BikeApp
-Working Directory: C:/Personal/dev/bike_project/bike-app
-Command Line: spring-boot:run
+Working Directory: {project path}/bike-app
+Command Line: spring-boot:run -Drun.jvmArguments='-Dserver.port=8081'
+```
+
+This will then run the spring boot app using port 8081.
 
 ##Testing API
 ###Postman Commands
@@ -103,7 +105,7 @@ URL example: http://localhost:8081/createBike?bikeName='chopper'&bikeDescription
 ```
 
 
-###What Else??
+##What Else??
 
 There were quite a few things that I would have liked to have done given more time but I wanted to time box myself as per instructions to see what I could deliver.
 
